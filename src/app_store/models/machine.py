@@ -11,6 +11,11 @@ class MachineManager(models.Manager):
 
 
 class Machine(GeneralDateModel):
+    serial = models.CharField(
+        max_length=25,
+        verbose_name=_('Serial'),
+        unique=True,
+    )
     hardware_serial = models.CharField(
         max_length=25,
         verbose_name=_('Hardware Serial'),
@@ -26,7 +31,13 @@ class Machine(GeneralDateModel):
     )
     imei = models.CharField(
         max_length=25,
+        null=True,
         verbose_name=_('IMEI')
+    )
+    phone_number = models.CharField(
+        max_length=14,
+        null=True,
+        verbose_name=_('Phone Number')
     )
     psp = models.ForeignKey(
         PSPModel,
@@ -45,8 +56,14 @@ class Machine(GeneralDateModel):
         choices=status_options,
         verbose_name=_('Status')
     )
+    type_options = [
+        ('GPR', _('GPRS')),
+        ('LAN', _('LAN(Internet)'))
+    ]
+    type = models.CharField(
+        max_length=3,
+        choices=type_options,
+        verbose_name=_('Type')
+    )
 
     objects = MachineManager()
-
-
-

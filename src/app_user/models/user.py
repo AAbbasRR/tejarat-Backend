@@ -93,7 +93,7 @@ class User(AbstractUser):
         verbose_name=_('Profile Image')
     )
     creator_email = models.EmailField(
-        default=email,
+        null=True,
     )
     position_options = [
         ('CEO', _('CEO')),
@@ -116,6 +116,11 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+    def save(self, *args, **kwargs):
+        if self.creator_email is None:
+            self.creator_email = self.email
+        return super(User, self).save(*args, **kwargs)
 
     def activate(self):
         """

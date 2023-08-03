@@ -62,4 +62,4 @@ class UserPermissions(models.Model):
                 self.can_manage_psp = True
                 self.can_manage_machine = True
                 self.can_see_machine_history = True
-        return super(UserPermissions, self).save(force_insert, force_update, using, update_fields),
+        return super(UserPermissions, self).save(force_insert, force_update, using, update_fields)
